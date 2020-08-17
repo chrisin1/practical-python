@@ -36,6 +36,21 @@ def read_portfolio(filename):
             portfolio.append(prices)
         return portfolio
 
-total = read_portfolio('Data/portfolio.csv')
-pprint(total)
+portfolio = read_portfolio('Data/portfolio.csv')
+#list comprehension
+# cost = sum([s['shares'] * s['price'] for s in portfolio]) 
+# more100 = [ s for s in portfolio if s['shares'] > 100 ]
+# msftibm = [ s for s in portfolio if s['name'] in {'MSFT','IBM'} ]
+# print(cost)
+# print(more100)
+# print(msftibm)
 
+#set comprehension
+names = { s['name'] for s in portfolio }
+prices = { s['price'] for s in portfolio}
+print(prices)
+# print(names)
+
+#dictionary comprehension
+holdings = { name: 0 for name in names }
+print(holdings)
