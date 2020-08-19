@@ -6,6 +6,9 @@ import csv
 from pprint import pprint
 from collections import Counter
 def read_portfolio(filename):
+    '''
+    Read stock from a CSV file of name,price data
+    '''
     # tuple version
     # with open(filename, 'rt') as f:
     #     # data = f.read() #all data on one line
@@ -28,24 +31,36 @@ def read_portfolio(filename):
         headers = next(rows)
         # print (headers)
 
-        types = [str, int, float]      #list conversion functions 
+        
         portfolio = [] #empty list        
         for rowNum, row in enumerate(rows, start = 1):
-            converted = [func(val) for func, val in zip(types, row)]
-            record = dict(zip(headers, converted)) #zip allows you to read data without hardcoding a fixed file format
+            record = dict(zip(headers, row)) #zip allows you to read data without hardcoding a fixed file format
             #print(record)
             try:
-                prices = {} # Initial empty dict
-                prices['name'] = record['name']
-                prices['shares'] = int(record['shares'])
-                prices['price'] = float(record['price'])
-                portfolio.append(prices)
+                stock = {} # Initial empty dict
+                stock['name'] = record['name']
+                stock['shares'] = int(record['shares'])
+                stock['price'] = float(record['price'])
+                portfolio.append(stock)
             except ValueError:
                 print(f'Row {rowNum}: Bad row: {row}')         
         return portfolio
 
-portfolio = read_portfolio('Data/portfolio.csv')
-portfolio2 = read_portfolio('Data/portfolio2.csv')
+def print_report(report):
+    headers = ('Name', 'Shares', 'Price')
+    print('%10s %10s %10s'  % headers)
+    print(('-' * 10 + ' ') * len(headers))
+    for row in report:
+        print('%10s %10d %10.2f' % (row['name'], row['shares'], row['price']))
+
+report = read_portfolio('Data/portfolio.csv')
+print(report)
+print_report(report)
+
+
+
+# portfolio = read_portfolio('Data/portfolio.csv')
+# portfolio2 = read_portfolio('Data/portfolio2.csv')
 
 #list 
 # cost = sum([s['shares'] * s['price'] for s in portfolio]) 
@@ -55,25 +70,25 @@ portfolio2 = read_portfolio('Data/portfolio2.csv')
 # print(more100)
 # print(msftibm)
 
-#set 
-names = { s['name'] for s in portfolio }
-prices = { s['price'] for s in portfolio}
-# print(names)
+# #set 
+# names = { s['name'] for s in portfolio }
+# stock = { s['price'] for s in portfolio}
+# # print(names)
 
-#dictionary 
-holdings = Counter()
-for s in portfolio:
-    holdings[s['name']] += s['shares']
+# #dictionary 
+# holdings = Counter()
+# for s in portfolio:
+#     holdings[s['name']] += s['shares']
 
-holdings2 = Counter()
-for s in portfolio2:
-    holdings2[s['name']] += s['shares']
+# holdings2 = Counter()
+# for s in portfolio2:
+#     holdings2[s['name']] += s['shares']
 
-#print(holdings)
-#print(holdings['MSFT'])
-print(holdings.most_common(3))
+# #print(holdings)
+# #print(holdings['MSFT'])
+# print(holdings.most_common(3))
 
-combined = holdings + holdings2
-print(combined)
-#holdings = { name: 0 for name in names }
-#holdings.items()
+# combined = holdings + holdings2
+# print(combined)
+# #holdings = { name: 0 for name in names }
+# #holdings.items()
