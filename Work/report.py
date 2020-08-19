@@ -24,16 +24,20 @@ def read_portfolio(filename):
         # data = f.read() #all data on one line
         # skip headers
         rows = csv.reader(f)
-        headers = next(f)
+        headers = next(rows)
         # print (headers)
         portfolio = [] #empty list        
-        for row in rows:
-            #print(row)
-            prices = {} # Initial empty dict
-            prices['name'] = row[0]
-            prices['shares'] = int(row[1])
-            prices['price'] = float(row[2])
-            portfolio.append(prices)
+        for rowNum, row in enumerate(rows, start = 1):
+            record = dict(zip(headers, row)) #zip allows you to read data without hardcoding a fixed file format
+            #print(record)
+            try:
+                prices = {} # Initial empty dict
+                prices['name'] = record['name']
+                prices['shares'] = int(record['shares'])
+                prices['price'] = float(record['price'])
+                portfolio.append(prices)
+            except ValueError:
+                print(f'Row {rowNum}: Bad row: {row}')         
         return portfolio
 
 portfolio = read_portfolio('Data/portfolio.csv')

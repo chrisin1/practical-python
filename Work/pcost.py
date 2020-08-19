@@ -8,14 +8,15 @@ def portfolio_cost(filename):
     with open(filename, 'rt') as f:
         # data = f.read() #all data on one line
         # skip headers
-        headers = next(f)
+        rows = csv.reader(f)
+        headers = next(rows)
         # print (headers)
         total = 0.0
-        for rowNum, line in enumerate(f, start = 1):
+        for rowNum, row in enumerate(rows, start = 1):
+            record = dict(zip(headers, row)) #zip allows you to read data without hardcoding a fixed file format
             try:
-                row = line.split(',')
-                count = int(row[1]) #converts first column to ints
-                price = float(row[2]) #takes second column, removes \n, and converts to float
+                count = int(record['shares']) #converts first column to ints
+                price = float(record['price']) #takes second column, removes \n, and converts to float
                 # price = price
                 total += (count * price)
             except ValueError:
@@ -25,6 +26,6 @@ def portfolio_cost(filename):
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
-    filename = 'Data/portfolio.csv'
+    filename = 'Data/portfoliodate.csv'
 cost = portfolio_cost(filename)
 print(cost)
