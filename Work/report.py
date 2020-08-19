@@ -27,9 +27,12 @@ def read_portfolio(filename):
         rows = csv.reader(f)
         headers = next(rows)
         # print (headers)
+
+        types = [str, int, float]      #list conversion functions 
         portfolio = [] #empty list        
         for rowNum, row in enumerate(rows, start = 1):
-            record = dict(zip(headers, row)) #zip allows you to read data without hardcoding a fixed file format
+            converted = [func(val) for func, val in zip(types, row)]
+            record = dict(zip(headers, converted)) #zip allows you to read data without hardcoding a fixed file format
             #print(record)
             try:
                 prices = {} # Initial empty dict
