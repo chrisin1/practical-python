@@ -4,6 +4,7 @@
 import sys
 import csv
 from pprint import pprint
+from collections import Counter
 def read_portfolio(filename):
     # tuple version
     # with open(filename, 'rt') as f:
@@ -41,7 +42,9 @@ def read_portfolio(filename):
         return portfolio
 
 portfolio = read_portfolio('Data/portfolio.csv')
-#list comprehension
+portfolio2 = read_portfolio('Data/portfolio2.csv')
+
+#list 
 # cost = sum([s['shares'] * s['price'] for s in portfolio]) 
 # more100 = [ s for s in portfolio if s['shares'] > 100 ]
 # msftibm = [ s for s in portfolio if s['name'] in {'MSFT','IBM'} ]
@@ -49,12 +52,25 @@ portfolio = read_portfolio('Data/portfolio.csv')
 # print(more100)
 # print(msftibm)
 
-#set comprehension
+#set 
 names = { s['name'] for s in portfolio }
 prices = { s['price'] for s in portfolio}
-print(prices)
 # print(names)
 
-#dictionary comprehension
-holdings = { name: 0 for name in names }
-print(holdings)
+#dictionary 
+holdings = Counter()
+for s in portfolio:
+    holdings[s['name']] += s['shares']
+
+holdings2 = Counter()
+for s in portfolio2:
+    holdings2[s['name']] += s['shares']
+
+#print(holdings)
+#print(holdings['MSFT'])
+print(holdings.most_common(3))
+
+combined = holdings + holdings2
+print(combined)
+#holdings = { name: 0 for name in names }
+#holdings.items()
