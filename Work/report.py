@@ -35,6 +35,15 @@ def print_report(report):
     for row in report:
         print('%10s %10d %10.2f' % (row['name'], row['shares'], row['price']))
 
+def main(argv):
+    if len(argv) != 2:
+        raise SystemExit('Usage: %s portfile pricefile' % argv[0])
+    report = read_portfolio(argv[1])
+    print_report(report)
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
 # report = read_portfolio('Data/portfolio.csv')
 # print(report)
 # print_report(report)
