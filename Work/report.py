@@ -25,8 +25,8 @@ def read_portfolio(filename):
     #     return portfolio
 
     # dict version
-   
-    return parse_csv(filename, select = ['name', 'shares', 'price'], types = [str, int, float])
+    with open(filename) as lines:
+        return parse_csv(lines, select = ['name', 'shares', 'price'], types = [str, int, float])
 
 def print_report(report):
     headers = ('Name', 'Shares', 'Price')
@@ -48,7 +48,8 @@ if __name__ == '__main__':
 # print(report)
 # print_report(report)
 
-# portfolio = read_portfolio('Data/portfolio.csv')
+portfolio = read_portfolio('Data/portfolio.csv')
+print_report(portfolio)
 # portfolio2 = read_portfolio('Data/portfolio2.csv')
 
 #list 
