@@ -41,8 +41,8 @@ def parse_csv(filename, select = None, types = None, has_headers = True, delimit
     return records
 
 #badPortfolio1 = parse_csv('Data/portfolio.csv', select = ['name', 'shares'], has_headers=False)
-portfolio2 = parse_csv('Data/portfolio.csv', types = [str, int, float])
-portfolio3 = parse_csv('Data/prices.csv', types = [str, float], has_headers = False)
-portfolio4 = parse_csv('Data/portfolio.dat', types=[str, int, float], delimiter=' ')
-badPortfolio2 = parse_csv('Data/missing.csv', types=[str, int, float], silence_errors = True)
-print(badPortfolio2)
+# portfolio2 = parse_csv('Data/portfolio.csv', types = [str, int, float])
+# portfolio3 = parse_csv('Data/prices.csv', types = [str, float], has_headers = False)
+# portfolio4 = parse_csv('Data/portfolio.dat', types=[str, int, float], delimiter=' ')
+# badPortfolio2 = parse_csv('Data/missing.csv', types=[str, int, float], silence_errors = True)
+# print(badPortfolio2)

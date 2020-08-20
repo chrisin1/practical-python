@@ -3,6 +3,7 @@
 # Exercise 2.4
 import sys
 import csv
+from fileparse import parse_csv
 from pprint import pprint
 from collections import Counter
 def read_portfolio(filename):
@@ -24,27 +25,8 @@ def read_portfolio(filename):
     #     return portfolio
 
     # dict version
-    with open(filename, 'rt') as f:
-        # data = f.read() #all data on one line
-        # skip headers
-        rows = csv.reader(f)
-        headers = next(rows)
-        # print (headers)
-
-        
-        portfolio = [] #empty list        
-        for rowNum, row in enumerate(rows, start = 1):
-            record = dict(zip(headers, row)) #zip allows you to read data without hardcoding a fixed file format
-            #print(record)
-            try:
-                stock = {} # Initial empty dict
-                stock['name'] = record['name']
-                stock['shares'] = int(record['shares'])
-                stock['price'] = float(record['price'])
-                portfolio.append(stock)
-            except ValueError:
-                print(f'Row {rowNum}: Bad row: {row}')         
-        return portfolio
+   
+    return parse_csv(filename, select = ['name', 'shares', 'price'], types = [str, int, float])
 
 def print_report(report):
     headers = ('Name', 'Shares', 'Price')
@@ -53,11 +35,9 @@ def print_report(report):
     for row in report:
         print('%10s %10d %10.2f' % (row['name'], row['shares'], row['price']))
 
-report = read_portfolio('Data/portfolio.csv')
-print(report)
-print_report(report)
-
-
+# report = read_portfolio('Data/portfolio.csv')
+# print(report)
+# print_report(report)
 
 # portfolio = read_portfolio('Data/portfolio.csv')
 # portfolio2 = read_portfolio('Data/portfolio2.csv')
