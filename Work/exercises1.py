@@ -50,3 +50,10 @@ import os
 # pairs = zip(columns, rows)
 # for column, row in pairs:
 #     print(column + ' ' + row)
+def go_do_something(num):
+    num + 1
+try:
+    go_do_something('ye')
+except Exception as e:
+    print('Computer says no. Reason :', e)
+    raise
