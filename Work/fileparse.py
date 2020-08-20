@@ -3,7 +3,7 @@
 # Exercise 3.3
 import csv
 import gzip
-
+import stock
 def parse_csv(lines, select = None, types = None, has_headers = True, delimiter = ',', silence_errors = False):
     '''
     Parse a CSV file into a list of records
@@ -40,6 +40,10 @@ def parse_csv(lines, select = None, types = None, has_headers = True, delimiter 
 
     return records
 
+with open('Data/portfolio.csv') as lines:
+     portdicts = parse_csv(lines, select=['name','shares','price'], types=[str,int,float])
+portfolio = [ stock.Stock(d['name'], d['shares'], d['price']) for d in portdicts]
+print(portfolio)
 #badPortfolio1 = parse_csv('Data/portfolio.csv', select = ['name', 'shares'], has_headers=False)
 # portfolio2 = parse_csv('Data/portfolio.csv', types = [str, int, float])
 # portfolio3 = parse_csv('Data/prices.csv', types = [str, float], has_headers = False)
