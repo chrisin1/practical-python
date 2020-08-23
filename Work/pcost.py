@@ -7,7 +7,7 @@ import report
 def portfolio_cost(filename):
 
     portfolio = report.read_portfolio(filename)
-    return sum([s.shares * s.price for s in portfolio])
+    return portfolio.total_cost
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
