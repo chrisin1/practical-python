@@ -1,7 +1,7 @@
-from follow import follow
+from .follow import follow
 import csv
-import report
-import tableformat
+from . import report
+from . import tableformat
 import time
 def convert_types(rows, types):
     for row in rows:

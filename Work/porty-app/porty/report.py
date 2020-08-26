@@ -1,9 +1,9 @@
 # report.py
 
-import fileparse
-import tableformat
-from stock import Stock
-from portfolio import Portfolio
+from . import fileparse
+from . import tableformat
+from .stock import Stock
+from .portfolio import Portfolio
 def read_portfolio(filename, **opts):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
